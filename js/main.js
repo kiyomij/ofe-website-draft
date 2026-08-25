@@ -1,0 +1,124 @@
+document.addEventListener('DOMContentLoaded', function () {
+  var toggle = document.querySelector('.nav-toggle');
+  var links = document.querySelector('.nav-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', function () {
+      var isOpen = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  function wireGoogleScriptForm(formSelector, scriptUrlKey, successMessage) {
+    var form = document.querySelector(formSelector);
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var status = form.querySelector('.form-status');
+      var scriptUrl = window[scriptUrlKey];
+
+      if (!scriptUrl) {
+        status.textContent = 'This form isn\'t connected yet — the site owner still needs to add the form script URL.';
+        status.dataset.state = 'error';
+        return;
+      }
+
+      var submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      status.textContent = 'Sending...';
+      status.dataset.state = '';
+
+      fetch(scriptUrl, {
+        method: 'POST',
+        body: new FormData(form)
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('Request failed');
+          form.reset();
+          status.textContent = successMessage;
+          status.dataset.state = 'ok';
+        })
+        .catch(function () {
+          status.textContent = 'Something went wrong sending this. Please try again in a moment.';
+          status.dataset.state = 'error';
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+        });
+    });
+  }
+
+  wireGoogleScriptForm('#contact-form', 'OFE_CONTACT_SCRIPT_URL', 'Message sent — thank you! We\'ll be in touch.');
+  wireGoogleScriptForm('#vision-form', 'OFE_VISION_SCRIPT_URL', 'Thanks for sharing — your ideas help shape what comes next.');
+
+  var navDropdown = document.querySelector('.nav-dropdown');
+  if (navDropdown) {
+    var navDropdownToggle = navDropdown.querySelector('.nav-dropdown-toggle');
+    var closeNavDropdown = function () {
+      navDropdown.classList.remove('open');
+      navDropdownToggle.setAttribute('aria-expanded', 'false');
+    };
+    navDropdownToggle.addEventListener('click', function () {
+      var isOpen = navDropdown.classList.toggle('open');
+      navDropdownToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    document.addEventListener('click', function (e) {
+      if (!navDropdown.contains(e.target)) closeNavDropdown();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeNavDropdown();
+    });
+    navDropdown.querySelectorAll('.nav-dropdown-menu a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        closeNavDropdown();
+        if (links) links.classList.remove('open');
+      });
+    });
+  }
+
+  var openers = document.querySelectorAll('[data-open]');
+  var backdrops = document.querySelectorAll('.modal-backdrop');
+
+  function openModal(id, trigger) {
+    var modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.add('open');
+    modal._trigger = trigger;
+    var closeBtn = modal.querySelector('.modal-close');
+    if (closeBtn) closeBtn.focus();
+    document.addEventListener('keydown', onKeydown);
+  }
+  function closeModal(modal) {
+    modal.classList.remove('open');
+    if (modal._trigger) modal._trigger.focus();
+    document.removeEventListener('keydown', onKeydown);
+  }
+  function onKeydown(e) {
+    if (e.key === 'Escape') {
+      backdrops.forEach(function (m) { if (m.classList.contains('open')) closeModal(m); });
+    }
+  }
+
+  openers.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      openModal(btn.getAttribute('data-open'), btn);
+    });
+  });
+  backdrops.forEach(function (modal) {
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal(modal);
+    });
+    modal.querySelectorAll('[data-close]').forEach(function (btn) {
+      btn.addEventListener('click', function () { closeModal(modal); });
+    });
+  });
+
+  function openModalFromHash() {
+    var id = window.location.hash.slice(1);
+    if (!id) return;
+    var modal = document.getElementById(id);
+    if (modal && modal.classList.contains('modal-backdrop')) openModal(id);
+  }
+  openModalFromHash();
+  window.addEventListener('hashchange', openModalFromHash);
+});

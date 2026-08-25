@@ -1,0 +1,10 @@
+.DS_Store
+
+# Unused source/raw material, not referenced by any page
+assets/raw/
+
+# Unlinked standalone mockups
+design-drafts/
+
+# Source content doc, not part of the live site
+content.md
