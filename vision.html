@@ -21,8 +21,8 @@
     <ul class="nav-links" id="primary-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="richmonds-story.html">Richmond's Story</a></li>
       <li><a href="vision.html" aria-current="page">Vision</a></li>
+      <li><a href="richmonds-story.html">Richmond's Story</a></li>
       <li><a href="priorities-projects.html">Priorities &amp; Projects</a></li>
       <li><a href="just-transition-plans.html">Just Transition Plans</a></li>
       <li><a href="possible-pathways.html">Possible Pathways</a></li>
@@ -132,7 +132,9 @@
       <h2>Land, Housing and Real Estate</h2>
 
       <div class="vision-theme">
-        <div class="vision-theme-media" aria-hidden="true">Image<br>placeholder</div>
+        <div class="vision-theme-media vision-theme-media-photo">
+          <img src="assets/images/Vision/urban_tilth.jpg" alt="Illustrated concept rendering of an Urban Tilth community green space and urban farm, with gardens, walking paths, and a pond." loading="lazy">
+        </div>
         <div class="vision-theme-body">
           <div class="lede-copy">
             <p>Residents want investment in Richmond, but not at the cost of displacement.</p>
@@ -245,6 +247,24 @@
       <div class="field">
         <label for="f-email">Email</label>
         <input id="f-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <details class="disclosure">
+          <summary>I am a... (click to select)</summary>
+          <div class="disclosure-body">
+            <div class="checkbox-grid">
+              <label><input type="checkbox" name="audience" value="Richmond resident who wants to get involved"> Richmond resident who wants to get involved</label>
+              <label><input type="checkbox" name="audience" value="Richmond resident with a question or comment"> Richmond resident with a question or comment</label>
+              <label><input type="checkbox" name="audience" value="Business or organization interested in partnering"> Business or organization interested in partnering</label>
+              <label><input type="checkbox" name="audience" value="Nonprofit or community group looking to collaborate"> Nonprofit or community group looking to collaborate</label>
+              <label><input type="checkbox" name="audience" value="Government or agency staff"> Government or agency staff</label>
+              <label><input type="checkbox" name="audience" value="Researcher or student"> Researcher or student</label>
+              <label><input type="checkbox" name="audience" value="Donor or funder who wants to learn more"> Donor or funder who wants to learn more</label>
+              <label><input type="checkbox" name="audience" value="Media or press inquiry"> Media or press inquiry</label>
+              <label><input type="checkbox" name="audience" value="Something else"> Something else</label>
+            </div>
+          </div>
+        </details>
       </div>
       <div class="field">
         <label for="f-message">Message</label>

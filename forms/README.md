@@ -15,7 +15,7 @@ own Google account — here's how, repeated for each form.
    - Set "Execute as" to **Me**.
    - Set "Who has access" to **Anyone**.
    - Click **Deploy**, and authorize it when Google prompts you (it'll warn that it's an unverified app — that's expected since it's just for you; click "Advanced" → "Go to (project name)" to proceed).
-5. Copy the **Web app URL** it gives you.
+5. Copy the **Web app URL** it gives you (send it to me)
 6. Paste that URL into `js/config.js`, replacing the empty string:
    ```js
    window.OFE_CONTACT_SCRIPT_URL = "https://script.google.com/macros/s/.../exec";

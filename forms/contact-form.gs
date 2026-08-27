@@ -7,11 +7,13 @@ var SHEET_NAME = 'Contact Submissions';
 function doPost(e) {
   var sheet = getOrCreateSheet();
   var params = e.parameter;
+  var audience = e.parameters.audience || [];
 
   sheet.appendRow([
     new Date(),
     params.name || '',
     params.email || '',
+    audience.join(', '),
     params.message || ''
   ]);
 
@@ -25,7 +27,7 @@ function getOrCreateSheet() {
   var sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
-    sheet.appendRow(['Submitted At', 'Name', 'Email', 'Message']);
+    sheet.appendRow(['Submitted At', 'Name', 'Email', 'I Am A...', 'Message']);
   }
   return sheet;
 }

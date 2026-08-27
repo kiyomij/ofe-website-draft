@@ -646,7 +646,7 @@ details.disclosure .disclosure-body a{ color:var(--accent); text-decoration-thic
 /* ---------------- Bio cards ---------------- */
 .bio-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns:repeat(auto-fill, minmax(280px, 340px));
   gap:24px;
 }
 .bio-card{
@@ -1019,6 +1019,18 @@ details.disclosure .disclosure-body a{ color:var(--accent); text-decoration-thic
   position:sticky;
   top:96px;
 }
+.vision-theme-media-photo{
+  border:0;
+  background:none;
+  padding:0;
+  overflow:hidden;
+}
+.vision-theme-media-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
 .vision-theme-body .lede-copy{ max-width:66ch; }
 
 .related-projects{
@@ -1195,6 +1207,37 @@ details.disclosure .disclosure-body a{ color:var(--accent); text-decoration-thic
   background:#f1e8d21a;
 }
 .field textarea{ resize:vertical; min-height:100px; }
+.contact-form details.disclosure{ margin-top:0; }
+.contact-form details.disclosure > summary{
+  color:#fff8ec;
+  transition:color .15s ease;
+}
+.contact-form details.disclosure > summary::before{
+  border-color:#fff8ec;
+  transition:border-color .15s ease;
+}
+.contact-form details.disclosure > summary:hover{
+  color:var(--accent);
+}
+.contact-form details.disclosure > summary:hover::before{
+  border-color:var(--accent);
+}
+.contact-form details.disclosure .disclosure-body{
+  border-top:1px solid #f1e8d21a;
+}
+.contact-form .checkbox-grid label{
+  font-family:var(--font-body);
+  font-size:14.5px;
+  font-weight:400;
+  text-transform:none;
+  letter-spacing:normal;
+  color:#fff8ec;
+}
+.contact-form .checkbox-grid input[type="checkbox"]{
+  accent-color:var(--accent);
+  border:1px solid #f1e8d233;
+  background:#f1e8d20d;
+}
 .form-status{
   font-family:var(--font-record);
   font-size:13px;
