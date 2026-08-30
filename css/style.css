@@ -244,6 +244,71 @@ a[target="_blank"]::after{
   .nav-dropdown-menu a{ padding:8px 0; }
 }
 
+/* ---------------- Page sidebar TOC (overlay) ----------------
+   Sections stay exactly as full-bleed as they are everywhere else on the
+   site; each one just reserves an empty strip of padding on its right edge
+   for the sidebar to occupy, so the section's own background still paints
+   underneath it — the sidebar overlays whatever color is currently in view
+   rather than sitting on a background column of its own. */
+@media (min-width:1360px){
+  body.has-sidebar-toc .nav-dropdown{ display:none; }
+
+  body.has-sidebar-toc main > section:not(.page-header){
+    padding-right:50px;
+  }
+
+  .page-toc-sidebar{
+    position:sticky;
+    top:150px;
+    height:0;
+    overflow:visible;
+    width:190px;
+    margin-left:auto;
+    margin-right:24px;
+  }
+  .page-toc-sidebar-inner{
+    box-sizing:border-box;
+    width:100%;
+    background:rgba(250,245,231,.75);
+    border:1px solid rgba(38,34,27,.08);
+    border-radius:6px;
+    padding:16px;
+    max-height:calc(100vh - 160px);
+    overflow-y:auto;
+  }
+  .page-toc-sidebar-eyebrow{
+    font-family:var(--font-record);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--sub);
+    margin:0 0 12px;
+  }
+  .page-toc-sidebar-list{ list-style:none; margin:0; padding:0; }
+  .page-toc-sidebar-list a{
+    display:block;
+    padding:7px 0 7px 14px;
+    font-family:var(--font-body);
+    font-size:14px;
+    line-height:1.4;
+    color:var(--ink);
+    text-decoration:none;
+    border-left:2px solid var(--line);
+    transition:color .15s ease, background-color .15s ease, border-left-color .15s ease;
+  }
+  .page-toc-sidebar-list a:hover{
+    color:var(--accent);
+    background:var(--paper-well);
+    border-left-color:var(--accent);
+  }
+  .page-toc-sidebar-list a.is-active{
+    color:var(--accent);
+    font-weight:700;
+    border-left-color:var(--accent);
+  }
+}
+
 /* ---------------- Buttons ---------------- */
 .btn{
   display:inline-flex;
