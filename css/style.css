@@ -265,6 +265,11 @@ a[target="_blank"]::after{
     width:190px;
     margin-left:auto;
     margin-right:24px;
+    transition:opacity .2s ease;
+  }
+  .page-toc-sidebar.is-footer-near{
+    opacity:0;
+    pointer-events:none;
   }
   .page-toc-sidebar-inner{
     box-sizing:border-box;
@@ -558,6 +563,7 @@ h2{
   padding:80px 0 4px;
   text-align:center;
 }
+.page-header .wrap{ transform:translateX(-6px); }
 .page-header img.title-card{
   max-width:420px;
   width:70%;
@@ -1552,6 +1558,16 @@ details.disclosure .disclosure-body a{ color:var(--accent); text-decoration-thic
 .contact-email{ font-size:13px; margin-top:2px; }
 
 /* ---------------- Project card ("Priority Ticket") ---------------- */
+/* "Read the Full Story" uses the inverse of the site's normal outline
+   button — filled at rest, outline on hover — scoped to this page only. */
+.ticket-actions .btn-outline{
+  background:var(--ink);
+  color:var(--paper);
+}
+.ticket-actions .btn-outline:hover{
+  background:transparent;
+  color:var(--ink);
+}
 .project-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit, minmax(360px, 1fr));
@@ -1755,22 +1771,6 @@ details.disclosure .disclosure-body a{ color:var(--accent); text-decoration-thic
   margin-left:1px;
 }
 
-.bucket-hint{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-family:var(--font-record);
-  font-size:17px;
-  font-weight:700;
-  color:var(--accent);
-  margin:0 0 18px;
-}
-.bucket-hint::before{
-  content:"▾";
-  font-size:15px;
-  flex:0 0 auto;
-}
-
 .bucket-section{ margin:0 0 52px; }
 .bucket-section:last-child{ margin-bottom:0; }
 .bucket-section-header{
@@ -1783,29 +1783,12 @@ details.disclosure .disclosure-body a{ color:var(--accent); text-decoration-thic
   border-bottom:2px solid var(--tint);
   scroll-margin-top:110px;
 }
-
-/* Each bucket is a native <details>, collapsed by default — the summary
-   is the existing header bar, just made clickable, so opening a category
-   no longer means scrolling past every other one first. */
-summary.bucket-section-header{
-  cursor:pointer;
-  list-style:none;
-  transition:border-bottom-color .15s ease;
-}
-summary.bucket-section-header::-webkit-details-marker{ display:none; }
-summary.bucket-section-header::marker{ content:""; }
-summary.bucket-section-header:hover{ border-bottom-color:var(--ink); }
-summary.bucket-section-header:hover h3{ color:var(--tint); transform:rotate(-1.5deg); }
-summary.bucket-section-header:hover .bucket-dot{ transform:scale(1.25); }
-summary.bucket-section-header:hover .bucket-section-chevron{ background:var(--ink); }
-.bucket-section[open] > summary.bucket-section-header{ margin-bottom:20px; }
 .bucket-section-header .bucket-dot{
   width:13px;
   height:13px;
   border-radius:50%;
   background:var(--tint);
   flex:0 0 auto;
-  transition:transform .15s ease;
 }
 .bucket-section-header h3{
   font-family:var(--font-display);
@@ -1813,8 +1796,6 @@ summary.bucket-section-header:hover .bucket-section-chevron{ background:var(--in
   font-size:clamp(20px, 2.4vw, 25px);
   margin:0;
   line-height:1.2;
-  display:inline-block;
-  transition:color .15s ease, transform .15s ease;
 }
 .bucket-section-count{
   font-family:var(--font-record);
@@ -1824,21 +1805,6 @@ summary.bucket-section-header:hover .bucket-section-chevron{ background:var(--in
   letter-spacing:.06em;
   color:var(--sub);
 }
-.bucket-section-chevron{
-  margin-left:auto;
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:var(--tint);
-  color:#fff8ec;
-  font-size:15px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  transition:transform .15s ease, background-color .15s ease;
-  flex:0 0 auto;
-}
-.bucket-section[open] .bucket-section-chevron{ transform:rotate(180deg); }
 .bucket-section .project-grid{ margin-bottom:0; }
 
 /* Transportation is the thinnest bucket (1 project) — a second cyclist
@@ -1846,6 +1812,7 @@ summary.bucket-section-header:hover .bucket-section-chevron{ background:var(--in
 .bucket-section-header .bucket-section-art{
   height:52px;
   width:auto;
+  margin-left:auto;
   align-self:flex-end;
 }
 
@@ -1962,6 +1929,16 @@ summary.bucket-section-header:hover .bucket-section-chevron{ background:var(--in
   line-height:1.68;
   color:var(--sub);
   margin:0 0 20px;
+}
+/* "Read the Essay" uses the inverse of the normal accent-outline button —
+   filled at rest, outline on hover. */
+.essay-card .btn-accent-outline{
+  background:var(--tint, var(--accent));
+  color:var(--paper-card);
+}
+.essay-card .btn-accent-outline:hover{
+  background:transparent;
+  color:var(--tint, var(--accent));
 }
 .essay-modal{
   position:relative;

@@ -8,13 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  document.querySelectorAll('.bucket-legend a[href^="#"]').forEach(function (a) {
-    a.addEventListener('click', function () {
-      var target = document.querySelector(a.getAttribute('href'));
-      if (target && target.tagName === 'DETAILS') target.open = true;
-    });
-  });
-
   var revealEls = document.querySelectorAll('.reveal');
   if (revealEls.length) {
     var revealSiblingCounts = new Map();
@@ -137,6 +130,20 @@ document.addEventListener('DOMContentLoaded', function () {
         if (current) setActiveTocLink(current);
       }, { rootMargin: '-96px 0px -60% 0px', threshold: 0 });
       tocSections.forEach(function (s) { tocObserver.observe(s); });
+    }
+
+    var siteFooter = document.querySelector('.site-footer');
+    var tocContent = pageTocSidebar.querySelector('.page-toc-sidebar-list');
+    if (siteFooter && tocContent) {
+      var TOC_FOOTER_BUFFER = 24;
+      var updateTocFooterState = function () {
+        var footerTop = siteFooter.getBoundingClientRect().top;
+        var tocBottom = tocContent.getBoundingClientRect().bottom;
+        pageTocSidebar.classList.toggle('is-footer-near', footerTop < tocBottom + TOC_FOOTER_BUFFER);
+      };
+      window.addEventListener('scroll', updateTocFooterState, { passive: true });
+      window.addEventListener('resize', updateTocFooterState);
+      updateTocFooterState();
     }
   }
 
